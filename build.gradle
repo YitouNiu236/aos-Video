@@ -92,9 +92,9 @@ android {
     signingConfigs {
         release {
             storeFile file("./TVBoxOS.jks")
-            storePassword 'TVBOX'
+            storePassword 'TVBoxOS'
             keyAlias 'TVBOX'
-            keyPassword 'TVBOX'
+            keyPassword 'TVBoxOS'
         }
         debug {
             if (keystorePropertiesFile.exists()) {
