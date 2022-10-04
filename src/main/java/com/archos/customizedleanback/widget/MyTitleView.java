@@ -150,7 +150,7 @@ public class MyTitleView extends RelativeLayout {
     public void setBadgeDrawable(Drawable drawable) {
         mBadgeView.setImageDrawable(drawable);
         if (drawable != null) {
-            mBadgeView.setVisibility(View.VISIBLE);
+            mBadgeView.setVisibility(View.GONE);
             mTextView.setVisibility(View.GONE);
         } else {
             mBadgeView.setVisibility(View.GONE);
