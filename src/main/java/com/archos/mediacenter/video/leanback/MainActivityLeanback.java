@@ -46,6 +46,7 @@ public class MainActivityLeanback extends LeanbackActivity {
 
     private String mCurrentUiModeLeanback;
     private PermissionChecker mPermissionChecker;
+    private long mExitTime = 0;
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -137,5 +138,16 @@ public class MainActivityLeanback extends LeanbackActivity {
             return true;
         }
         return super.onKeyLongPress(keyCode, event);
+    }
+    
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - mExitTime < 2000) {
+            finish();
+            super.onBackPressed();
+        } else {
+            mExitTime = System.currentTimeMillis();
+            Toast.makeText(this, "再按一次返回键退出应用", Toast.LENGTH_SHORT).show();
+        }
     }
 }
