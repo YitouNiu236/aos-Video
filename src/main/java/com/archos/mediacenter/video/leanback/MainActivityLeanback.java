@@ -24,6 +24,7 @@ import android.os.Bundle;
 import androidx.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.archos.mediacenter.video.CustomApplication;
 import com.archos.mediacenter.video.DensityTweak;
