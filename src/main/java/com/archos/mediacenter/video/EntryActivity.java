@@ -40,11 +40,11 @@ public class EntryActivity extends AppCompatActivity {
 
         Class activityToLaunch = null;
 
-        if (UiChoiceDialog.applicationIsInLeanbackMode(this)) {
+        //if (UiChoiceDialog.applicationIsInLeanbackMode(this)) {
             activityToLaunch = MainActivityLeanback.class;
-        } else {
-            activityToLaunch = MainActivity.class;
-        }
+        //} else {
+            //activityToLaunch = MainActivity.class;
+        //}
 
         final Intent originIntent = getIntent();
         Intent i = new Intent();

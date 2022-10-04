@@ -68,7 +68,7 @@
     <string name="rescrap_all_collections_prefkey">rescrap_all_collections_prefkey</string>
     <string name="db_export_manual_prefkey">db_export_manual_prefkey</string>
 
-    <string name="nova">Nova Video Player</string>
+    <string name="nova">XXPlayer</string>
 
     <string name="resolution_4k">4k</string>
     // do not say p since it can be i too
