@@ -267,7 +267,6 @@ public class Player implements IPlayerControl,
                 mMediaPlayer.setAudioFilter(mAudioFilter, mNightModeOn);
             if (mAvDelay != 0)
                 mMediaPlayer.setAvDelay(mAvDelay);
-            // TODO MARC check
             if (mAvSpeed != 1.0f)
                 mMediaPlayer.setAvSpeed(mAvSpeed);
             if (mAudioTrack != -1)
@@ -733,7 +732,7 @@ public class Player implements IPlayerControl,
     public int getCurrentPosition() {
         if (isInPlaybackState()) {
             int currentPos = mMediaPlayer.getCurrentPosition();
-            log.debug("MARC getCurrentPosition: " + currentPos);
+            log.debug("getCurrentPosition: " + currentPos);
             return currentPos;
         } else if (mStopPosition != -1) {
             return mStopPosition;
