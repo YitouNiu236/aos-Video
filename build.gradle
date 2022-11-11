@@ -130,7 +130,7 @@ android {
         // this is overridden when using split apk and normal split apk generation or oneapk amazon generation
         // amazon apk is generated with ./gradlew -Poneapk
 
-        versionName = '6.0.80'
+        versionName = '6.0.81'
         versionCode = 600080
 
         if (!keystorePropertiesFile.exists()) signingConfig signingConfigs.release
