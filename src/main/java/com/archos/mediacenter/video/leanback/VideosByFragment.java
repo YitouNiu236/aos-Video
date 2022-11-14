@@ -45,7 +45,7 @@ import java.util.ArrayList;
 
 public abstract class VideosByFragment extends BrowseSupportFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String TAG = "MoviesByFragment";
+    private static final String TAG = "VideosByFragment";
     private static boolean DBG = false;
 
     private ArrayObjectAdapter mRowsAdapter;
