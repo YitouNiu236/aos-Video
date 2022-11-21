@@ -91,6 +91,11 @@ public class VideoPreferencesCommon implements OnSharedPreferenceChangeListener 
     // should we provide adaptive refresh rate for all (not only on TV)
     private static final boolean REFRESHRATE_FORALL = true;
 
+    // default stream buffer size in MB before parser
+    public static final int DEFAULT_STREAM_BUFFER_SIZE = 24;
+    // default max iframe compressed frame size in MB
+    public static final int DEFAULT_MAX_IFRAME_SIZE = 6;
+
     public static final String KEY_ADVANCED_VIDEO_ENABLED = "preferences_advanced_video_enabled";
     public static final String KEY_ADVANCED_VIDEO_CATEGORY = "preferences_category_advanced_video";
     public static final String KEY_ABOUT_CATEGORY = "about_category";
@@ -103,6 +108,8 @@ public class VideoPreferencesCommon implements OnSharedPreferenceChangeListener 
     public static final String KEY_FORCE_SW = "force_software_decoding";
     public static final String KEY_FORCE_AUDIO_PASSTHROUGH = "force_passthrough";
     public static final String KEY_PARSER_SYNC_MODE = "parser_sync_mode";
+    public static final String KEY_STREAM_BUFFER_SIZE = "stream_buffer_size";
+    public static final String KEY_STREAM_MAX_IFRAME_SIZE = "stream_max_iframe_size";
     public static final String KEY_PLAYBACK_SPEED = "playback_speed";
     public static final String KEY_ACTIVATE_REFRESHRATE_SWITCH = "enable_tv_refreshrate_switch";
     public static final String KEY_ACTIVATE_3D_SWITCH = "activate_tv_switch";
@@ -939,7 +946,9 @@ public class VideoPreferencesCommon implements OnSharedPreferenceChangeListener 
     public static class PreferenceHelper{
 
         public static boolean shouldDisplayAllFiles(Context context){
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_DISPLAY_ALL_FILE, false);
+            if (context != null)
+                return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_DISPLAY_ALL_FILE, false);
+            else return false;
         }
     }
 
