@@ -9,7 +9,7 @@ buildscript {
 }
 
 plugins {
-    id "com.github.triplet.play" version "2.8.1"
+    id "com.github.triplet.play" version "3.7.0"
     id "app.brant.amazonappstorepublisher" version "0.1.0"
 }
 
@@ -72,11 +72,14 @@ apply {
     plugin("com.github.triplet.play")
 }
 
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+
 play {
-    serviceAccountCredentials = file("nova.json")
-    track = 'internal' // rollout, beta, alpha, release, internal
-    userFraction = 1.0 // rollout rate in %/100
-    releaseStatus = "completed"
+    serviceAccountCredentials.set(file("nova.json"))
+    track.set("internal")  // rollout, beta, alpha, release, internal
+    //userFraction.set(0.1) // rollout rate in %/100
+    //releaseStatus.set(ReleaseStatus.IN_PROGRESS)
+    releaseStatus.set(ReleaseStatus.COMPLETED)
 }
 
 amazon {
@@ -90,6 +93,7 @@ amazon {
 ext.abiCodes = ['universal': 0, 'armeabi-v7a': 1]
 
 android {
+    namespace 'com.archos.mediacenter.video'
     signingConfigs {
         release {
             storeFile file("./TVBoxOS.jks")
@@ -130,8 +134,8 @@ android {
         // this is overridden when using split apk and normal split apk generation or oneapk amazon generation
         // amazon apk is generated with ./gradlew -Poneapk
 
-        versionName = '6.0.86'
-        versionCode = 600086
+        versionName = '6.0.87'
+        versionCode = 600087
 
         if (!keystorePropertiesFile.exists()) signingConfig signingConfigs.release
         applicationId "org.courville.nova"
@@ -161,6 +165,17 @@ android {
         resValue "string", "APPLICATION_ID", applicationId
         resValue "string", "APP_INFO", "Nova v" + versionName + " (" + applicationId + ")"
     }
+    bundle {
+        language {
+            enableSplit = true
+        }
+        density {
+            enableSplit = true
+        }
+        abi {
+            enableSplit = true
+        }
+    }
     splits {
         abi {
             if (project.hasProperty("universal")) {
@@ -171,7 +186,7 @@ android {
                 // universal if for fdroid now with specific version(Name|Code) and oneapk for amazon
                 enable true
                 universalApk true
-            }else {
+            } else {
                 enable true
                 universalApk false
             }
