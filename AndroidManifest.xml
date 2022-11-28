@@ -21,7 +21,6 @@
     android:installLocation="auto"
     android:sharedUserId="archos.openmediacenter">
 
-    <dist:module dist:instant="true" />
     <supports-screens android:largeScreens="true" />
 
     <original-package android:name="${applicationId}" />
@@ -57,9 +56,12 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" / -->
-    <!-- implicitly grants READ_EXTERNAL_STORAGE / -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!--<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -262,6 +264,7 @@
                 <data android:mimeType="audio/mpegurl" />
                 <data android:mimeType="audio/x-mpegurl" />
                 <data android:mimeType="application/x-shockwave-flash" />
+                <data android:mimeType="application/x-bittorrent"/>
             </intent-filter>
             <!--
             such ugly explicit matching is required because Android primitive PatternMatcher where <data android:pathPattern=".*\\.mkv" />
@@ -279,9 +282,11 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:scheme="ftp" />
+                <data android:scheme="magnet"/>
                 <data android:host="*" />
                 <data android:mimeType="video/*" />
                 <data android:mimeType="application/*" />
+                <data android:mimeType="application/x-bittorrent" />
                 <data android:pathPattern=".*\\.3g2" />
                 <data android:pathPattern=".*\\..*\\.3g2" />
                 <data android:pathPattern=".*\\..*\\..*\\.3g2" />
@@ -788,6 +793,13 @@
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.webm" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.webm" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.webm" />
+                <data android:pathPattern=".*\\.torrent" />
+                <data android:pathPattern=".*\\..*\\.torrent" />
+                <data android:pathPattern=".*\\..*\\..*\\.torrent" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.torrent" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.torrent" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.torrent" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.torrent" />
                 <data android:pathPattern=".*\\.3G2" />
                 <data android:pathPattern=".*\\..*\\.3G2" />
                 <data android:pathPattern=".*\\..*\\..*\\.3G2" />
@@ -942,6 +954,13 @@
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.WEBM" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.WEBM" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.WEBM" />
+                <data android:pathPattern=".*\\.TORRENT" />
+                <data android:pathPattern=".*\\..*\\.TORRENT" />
+                <data android:pathPattern=".*\\..*\\..*\\.TORRENT" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.TORRENT" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.TORRENT" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.TORRENT" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.TORRENT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="archos.intent.action.RESUME_VIDEOPLAYER" />
