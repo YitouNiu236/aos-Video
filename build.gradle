@@ -90,6 +90,8 @@ android {
                 keyAlias keystoreProperties['keyAlias']
                 keyPassword keystoreProperties['keyPassword']
             }
+            enableV3Signing = true
+            enableV4Signing = true
         }
     }
     compileOptions {
@@ -268,7 +270,7 @@ dependencies {
     implementation 'androidx.core:core:1.9.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
-    implementation 'androidx.fragment:fragment:1.5.4'
+    implementation 'androidx.fragment:fragment:1.5.5'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
@@ -282,6 +284,6 @@ dependencies {
     implementation 'androidx.leanback:leanback-preference:1.2.0-alpha02'
     implementation 'androidx.tvprovider:tvprovider:1.0.0'
     implementation 'fr.turri:aXMLRPC:1.12.0'
-    implementation 'io.sentry:sentry-android:6.4.3'
-    implementation 'io.sentry:sentry:6.4.3'
+    implementation 'io.sentry:sentry-android:6.8.0'
+    implementation 'io.sentry:sentry:6.8.0'
 }
