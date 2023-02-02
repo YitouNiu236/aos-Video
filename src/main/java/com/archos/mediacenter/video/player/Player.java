@@ -18,7 +18,6 @@ package com.archos.mediacenter.video.player;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
-import android.hardware.display.DisplayManager;
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
@@ -36,6 +35,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
 import com.archos.mediacenter.video.R;
+import com.archos.mediacenter.video.utils.CodecDiscovery;
 import com.archos.mediacenter.video.utils.VideoMetadata;
 import com.archos.mediacenter.video.utils.VideoPreferencesCommon;
 import com.archos.medialib.IMediaPlayer;
@@ -107,6 +107,8 @@ public class Player implements IPlayerControl,
          //| WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
          //| WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
     );
+
+    private static boolean dolbyVisionDisplay = false;
 
     // All the stuff we need for playing and showing a video
     private Context     mContext = null;
@@ -320,7 +322,7 @@ public class Player implements IPlayerControl,
     }
 
     public Player(Context context, Window window, SurfaceController surfaceController, boolean forceSoftwareDecoding) { //force software decoding is specific for floating player
-        sPlayer =this;
+        sPlayer = this;
         log.debug("Player");
         reset();
         mSurfaceHolder = null;
@@ -418,7 +420,6 @@ public class Player implements IPlayerControl,
 
     synchronized public void stopPlayback() {
         log.debug("stopPlayback");
-        if (PlayerService.sPlayerService != null) PlayerService.sPlayerService.saveVideoStateIfReady();
         mHandler.removeCallbacks(mPreparedAsync);
         stayAwake(false);
         if (mEffectRenderer != null) {
@@ -476,6 +477,9 @@ public class Player implements IPlayerControl,
             // not ready for playback just yet, will try again later
             return;
         }
+
+        boolean isDoViDisabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(VideoPreferencesCommon.KEY_DISABLE_DOLBY_VISION, false);
+        CodecDiscovery.disableDoVi(isDoViDisabled); // could be an autoswitch based on HDR DoVi screen capability
 
         // we shouldn't clear the target state, because somebody might have
         // called start() previously
@@ -568,7 +572,7 @@ public class Player implements IPlayerControl,
         mVideoTexture = null;
         stopPlayback();
         if(mContext instanceof PlayerActivity)
-        ((PlayerActivity) mContext).setUIExternalSurface(null);
+            ((PlayerActivity) mContext).setUIExternalSurface(null);
         if(mContext instanceof FloatingPlayerService)
             ((FloatingPlayerService) mContext).setUIExternalSurface(null);
         if(mEffectRenderer!=null){
@@ -587,7 +591,7 @@ public class Player implements IPlayerControl,
         mVideoTexture = mEffectRenderer.getVideoTexture();
         mUISurface = mEffectRenderer.getUISurface();
         if(mContext instanceof PlayerActivity)
-        ((PlayerActivity) mContext).setUIExternalSurface(mUISurface);
+            ((PlayerActivity) mContext).setUIExternalSurface(mUISurface);
         if(mContext instanceof FloatingPlayerService)
             ((FloatingPlayerService) mContext).setUIExternalSurface(mUISurface);
         mSurfaceWidth = width;
@@ -698,7 +702,6 @@ public class Player implements IPlayerControl,
 
     public void pause(int state) {
         log.debug("pause");
-        if (PlayerService.sPlayerService != null) PlayerService.sPlayerService.saveVideoStateIfReady();
         if (isInPlaybackState()) {
             if (mMediaPlayer.isPlaying()) {
                 mMediaPlayer.pause();
@@ -1010,6 +1013,8 @@ public class Player implements IPlayerControl,
                                 switch (hdrSupportedTypes[i]) {
                                     case Display.HdrCapabilities.HDR_TYPE_DOLBY_VISION:
                                         log.debug("CONFIG HDR dolby vision supported");
+                                        dolbyVisionDisplay = true;
+                                        CodecDiscovery.displaySupportsDoVi(dolbyVisionDisplay); // TODO this is sent too late for capability checking
                                         break;
                                     case Display.HdrCapabilities.HDR_TYPE_HDR10:
                                         log.debug("CONFIG HDR10 supported");
